@@ -4,17 +4,18 @@
 
 {% block content %}
 
-    {% if user.is_authenticated %}
+{% if user.is_authenticated %}
 
-        <p>Hi {{ user.username }}! You are {{ user.age }} years old</p>
-        <p><a href="{%url 'logout' %}">Log Out</a></p>
+<p>Hi {{ user.username }}! You are {{ user.age }} years old</p>
+<p><a href="{%url 'logout' %}">Log Out</a></p>
+<p><a href="{% url 'article_list' %}" class="btn btn-outline-primary">View All Articles</a></p>
 
-    {% else %}
+{% else %}
 
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">log In</a> | 
-        <a href="{% url 'signup' %}">Sign Up</a>
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">log In</a> |
+<a href="{% url 'signup' %}">Sign Up</a>
 
-    {% endif %}
+{% endif %}
 
 {% endblock content %}
