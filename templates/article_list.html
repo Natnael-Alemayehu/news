@@ -11,16 +11,29 @@
             <a href="{% url 'article_detail' article.pk  %}">{{article.title}}</a>
         </span> &middot;
         <span class="text-muted">by {{article.author}} | {{article.date}}</span>
+        <span class="card-header text-muted text-end">
+            <a href="{% url 'article_edit' article.pk %}">Edit</a>
+            <a href="{% url 'article_delete' article.pk %}">Delete</a>
+        </span>
     </div>
     <div class="card-body">
-        {{article.body}}
+        <p>{{article.body}}</p>
+
+        {% if article.author.pk == request.user.pk %}
+        {% endif %}
+        <a href="{{ article.get_absolute_url }}">New Comment</a>
+        <!-- <a href="{% url 'article_detail' article.pk %}">New Comment</a> -->
     </div>
-    {% if article.author.pk == request.user.pk %}
-    <div class="card-footer text-center text-muted">
-        <a href="{% url 'article_edit' article.pk %}">Edit</a>
-        <a href="{% url 'article_delete' article.pk %}">Delete</a>
+    <div class="card-footer">
+        {% for comment in article.comment_set.all %}
+        <p>
+            <span class="fw-bold">
+                {{ comment.author }} &middot;
+            </span>
+            {{ comment.comment }}
+        </p>
+        {% endfor %}
     </div>
-    {% endif %}
 </div>
 <br />
 {% endfor %}
